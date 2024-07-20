@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="table-container"></div>
+
+    <script>
+        // Define a class for generating the multiplication table
+        class MultiplicationTable {
+            constructor(number) {
+                this.number = number;
+            }
+
+            // Method to generate the multiplication table
+            generateTable() {
+                let table = document.createElement('table');
+                let thead = table.createTHead();
+                let tbody = table.createTBody();
+
+                // Create table header
+                let headerRow = thead.insertRow();
+                let th1 = document.createElement('th');
+                let th2 = document.createElement('th');
+                let th3 = document.createElement('th');
+                th1.textContent = "Number";
+                th2.textContent = "Multiplier";
+                th3.textContent = "Product";
+                headerRow.appendChild(th1);
+                headerRow.appendChild(th2);
+                headerRow.appendChild(th3);
+
+                // Create table rows using do while loop
+                let i = 1;
+                do {
+                    let row = tbody.insertRow();
+                    let cellNumber = row.insertCell();
+                    let cellMultiplier = row.insertCell();
+                    let cellProduct = row.insertCell();
+                    cellNumber.textContent = this.number;
+                    cellMultiplier.textContent = i;
+                    cellProduct.textContent = this.number * i;
+                    i++;
+                } while (i <= 10);
+
+                return table;
+            }
+        }
+
+        // Prompt the user for a number
+        let number = prompt("Enter a number to generate its multiplication table:");
+        if (number !== null && !isNaN(number)) {
+            number = parseInt(number);
+
+            // Create an instance of MultiplicationTable and generate the table
+            let multiplicationTable = new MultiplicationTable(number);
+            let table = multiplicationTable.generateTable();
+
+            // Append the generated table to the container
+            document.getElementById('table-container').appendChild(table);
+        } else {
+            alert("Please enter a valid number.");
+        }
+    </script>
+
+</body>
+
+</html>

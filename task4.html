@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Class Example</title>
+</head>
+
+<body>
+    <h1>Employee Details</h1>
+    <p id="employee-name"></p>
+    <p id="employee-salary"></p>
+    <p id="employee-hire-date"></p>
+    <p id="employee-years-of-service"></p>
+
+    <script>
+        class Employee {
+            constructor(name, salary, hireDate) {
+                this.name = name;
+                this.salary = salary;
+                this.hireDate = new Date(hireDate);
+            }
+
+            calculateYearsOfService() {
+                const currentDate = new Date();
+                const yearsOfService = currentDate.getFullYear() - this.hireDate.getFullYear();
+                const monthDifference = currentDate.getMonth() - this.hireDate.getMonth();
+                const dayDifference = currentDate.getDate() - this.hireDate.getDate();
+
+                // Adjust years if the hire date hasn't been reached yet this year
+                if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+                    return yearsOfService - 1;
+                }
+
+                return yearsOfService;
+            }
+        }
+
+        // Function to display Employee details
+        function displayEmployeeDetails(employee) {
+            document.getElementById('employee-name').textContent = `Name: ${employee.name}`;
+            document.getElementById('employee-salary').textContent = `Salary: $${employee.salary}`;
+            document.getElementById('employee-hire-date').textContent = `Hire Date: ${employee.hireDate.toDateString()}`;
+            document.getElementById('employee-years-of-service').textContent = `Years of Service: ${employee.calculateYearsOfService()}`;
+        }
+
+        // Example usage
+        window.onload = function () {
+            const employee = new Employee('John Doe', 50000, '2015-06-15');
+            displayEmployeeDetails(employee);
+        }
+    </script>
+</body>
+
+</html>
